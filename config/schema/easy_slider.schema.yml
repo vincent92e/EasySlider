@@ -1,0 +1,36 @@
+easy_slider.easy_slider.*:
+  type: config_entity
+  label: 'Easy slider config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    slide_images:
+      type: sequence
+      label: 'List of media entities'
+      sequence:
+        type: string
+        label: 'Media entity'
+    slide_captions:
+      type: sequence
+      label: 'List of image captions'
+      sequence:
+        type: string
+        label: 'Image caption'
+    slide_settings:
+      type: mapping
+      mapping:
+        effect:
+          type: string
+          label: Slide effect
+        speed:
+          type: string
+          label: Slide animation or fade speed
+        arrows:
+          type: boolean
+          label: Show or hide slide arrows
+    uuid:
+      type: string

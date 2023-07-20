@@ -1,0 +1,5 @@
+entity.easy_slider.add_form:
+  route_name: entity.easy_slider.add_form
+  title: 'Add Easy slider'
+  appears_on:
+    - entity.easy_slider.collection

@@ -1,0 +1,8 @@
+
+# Easy slider menu items definition
+entity.easy_slider.collection:
+  title: 'Easy slider'
+  route_name: entity.easy_slider.collection
+  description: 'List Easy slider (bundles)'
+  parent: system.admin_structure
+  weight: 99
