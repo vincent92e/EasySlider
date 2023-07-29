@@ -20,7 +20,8 @@ class EasySliderForm extends EntityForm {
      * @var \Drupal\easy_slider\Entity\EasySlider $easy_slider
      */
     $easy_slider = $this->entity;
-
+    // dump($easy_slider->getSlideSettings('effect'));
+    // dump($easy_slider->getSlideSettings('speed'));.
     $form['name'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Name'),
@@ -57,14 +58,14 @@ class EasySliderForm extends EntityForm {
       '#allowed_bundles' => ['image'],
       '#title' => $this->t('Slide image one'),
       '#description' => $this->t('Select image for slide one'),
-      '#default_value' => $easy_slider->getSlideImages()[0],
+      '#default_value' => !empty($easy_slider->getSlideImages()) ? $easy_slider->getSlideImages()[0] : NULL,
     ];
 
     $form['image']['slide_one_caption'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Slide one caption'),
       '#description' => $this->t('Add caption for slide one'),
-      '#default_value' => $easy_slider->getSlideCaptions()[0],
+      '#default_value' => !empty($easy_slider->getSlideCaptions()) ? $easy_slider->getSlideCaptions()[0] : NULL,
     ];
 
     $form['image']['slide_two'] = [
@@ -72,14 +73,14 @@ class EasySliderForm extends EntityForm {
       '#allowed_bundles' => ['image'],
       '#title' => $this->t('Slide image two'),
       '#description' => $this->t('Select image for slide two'),
-      '#default_value' => $easy_slider->getSlideImages()[1],
+      '#default_value' => !empty($easy_slider->getSlideImages()) ? $easy_slider->getSlideImages()[1] : NULL,
     ];
 
     $form['image']['slide_two_caption'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Slide two caption'),
       '#description' => $this->t('Add caption for slide two'),
-      '#default_value' => $easy_slider->getSlideCaptions()[1],
+      '#default_value' => !empty($easy_slider->getSlideCaptions()) ? $easy_slider->getSlideCaptions()[1] : NULL,
     ];
 
     $form['image']['slide_three'] = [
@@ -87,14 +88,14 @@ class EasySliderForm extends EntityForm {
       '#allowed_bundles' => ['image'],
       '#title' => $this->t('Slide image three'),
       '#description' => $this->t('Select image for slide three'),
-      '#default_value' => $easy_slider->getSlideImages()[2],
+      '#default_value' => !empty($easy_slider->getSlideImages()) ? $easy_slider->getSlideImages()[2] : NULL,
     ];
 
     $form['image']['slide_three_caption'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Slide three caption'),
       '#description' => $this->t('Add caption for slide three'),
-      '#default_value' => $easy_slider->getSlideCaptions()[2],
+      '#default_value' => !empty($easy_slider->getSlideCaptions()) ? $easy_slider->getSlideCaptions()[2] : NULL,
     ];
 
     $form['slide_settings'] = [
@@ -114,21 +115,21 @@ class EasySliderForm extends EntityForm {
       '#title' => $this->t('Slide effect'),
       '#description' => $this->t('Choose a slide effect'),
       '#options' => $effects,
-      '#default_value' => $easy_slider->getSlideSettings('effect'),
+      '#default_value' => !empty($easy_slider->getSlideSettings()) ? $easy_slider->getSlideSettings()['effect'] : NULL,
     ];
 
     $form['slide_settings']['speed'] = [
       '#type' => 'number',
       '#title' => $this->t('Slide animation/fade speed'),
       '#description' => $this->t('Choose a slide animation or fade speed, e.g 300'),
-      '#default_value' => $easy_slider->getSlideSettings('speed'),
+      '#default_value' => !empty($easy_slider->getSlideSettings()) ? intval($easy_slider->getSlideSettings()['speed']) : NULL,
     ];
 
     $form['slide_settings']['arrows'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Slide animation/fade speed'),
-      '#description' => $this->t('Choose a slide animation or fade speed, e.g 300'),
-      '#default_value' => $easy_slider->getSlideSettings('arrows'),
+      '#title' => $this->t('Slide arrows'),
+      '#description' => $this->t('Enable/disable slide arrows'),
+      '#default_value' => !empty($easy_slider->getSlideSettings()) ? $easy_slider->getSlideSettings()['arrows'] : NULL,
     ];
 
     /* You will need additional form elements for your custom properties. */
@@ -144,6 +145,25 @@ class EasySliderForm extends EntityForm {
      * @var \Drupal\easy_slider\Entity\EasySlider $easy_slider
      */
     $easy_slider = $this->entity;
+
+    $captions = [];
+    $captions[0] = $form_state->getValue('slide_one_caption');
+    $captions[1] = $form_state->getValue('slide_two_caption');
+    $captions[2] = $form_state->getValue('slide_three_caption');
+
+    $images = [];
+    $images[0] = $form_state->getValue('slide_one');
+    $images[1] = $form_state->getValue('slide_two');
+    $images[2] = $form_state->getValue('slide_three');
+
+    $settings = [];
+    $settings['effect'] = $form_state->getValue('effect');
+    $settings['speed'] = $form_state->getValue('speed');
+    $settings['arrows'] = $form_state->getValue('arrows');
+
+    $easy_slider->setSlideCaptions($captions);
+    $easy_slider->setSlideImages($images);
+    $easy_slider->setSlideSettings($settings);
     $status = $easy_slider->save();
 
     switch ($status) {

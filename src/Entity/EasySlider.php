@@ -34,10 +34,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
+ *     "uuid" = "uuid",
  *     "slide_images" = "slide_images",
  *     "slide_captions" = "slide_captions",
  *     "slide_settings" = "slide_settings",
- *     "uuid" = "uuid",
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/easy_slider/{easy_slider}",
@@ -69,18 +69,68 @@ class EasySlider extends ConfigEntityBase implements EasySliderInterface {
    *
    * @var array
    */
-  protected $slider_images;
+  protected $slide_images;
 
+  /**
+   * The Easy slider captions.
+   *
+   * @var array
+   */
+  protected $slide_captions;
+
+  /**
+   * The Easy slider settings.
+   *
+   * @var array
+   */
+  protected $slide_settings;
+
+  /**
+   * Get images.
+   */
   public function getSlideImages() {
     return $this->get('slide_images');
   }
 
+  /**
+   * Get captions.
+   */
   public function getSlideCaptions() {
     return $this->get('slide_captions');
   }
 
-  public function getSlideSettings($field) {
-    return $this->get("slide_settings.{$field}");
+  /**
+   * Get slide settings.
+   */
+  public function getSlideSettings() {
+    return $this->get('slide_settings');
+  }
+
+  /**
+   * Set slide images.
+   *
+   * @param array $images
+   */
+  public function setSlideImages($images) {
+    return $this->set('slide_images', $images);
+  }
+
+  /**
+   * Set slide captions.
+   *
+   * @param array $captions
+   */
+  public function setSlideCaptions($captions) {
+    return $this->set('slide_captions', $captions);
+  }
+
+  /**
+   * Set slide settings.
+   *
+   * @param array $settings
+   */
+  public function setSlideSettings($settings) {
+    return $this->set('slide_settings', $settings);
   }
 
 }

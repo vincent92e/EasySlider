@@ -34,3 +34,11 @@ easy_slider.easy_slider.*:
           label: Show or hide slide arrows
     uuid:
       type: string
+
+block.settings.easy_slider_block:
+  type: block_settings
+  label: 'Easy slider'
+  mapping:
+    slides:
+      type: label
+      label: 'Slides to display'

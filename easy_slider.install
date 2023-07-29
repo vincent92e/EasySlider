@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Install function for the easy_slider install profile.
+ */
+
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_install().
+ */
+function easy_slider_install() {
+  create_easy_slider_image_style('easy_slider_mobile', [
+    'width' => 640,
+    'height' => 360,
+  ], 0);
+  create_easy_slider_image_style('easy_slider_tablet', [
+    'width' => 768,
+    'height' => 432,
+  ], 1);
+  create_easy_slider_image_style('easy_slider_laptop', [
+    'width' => 1024,
+    'height' => 320,
+  ], 2);
+  create_easy_slider_image_style('easy_slider_desktop', [
+    'width' => 1920,
+    'height' => 600,
+  ], 3);
+}
+
+/**
+ * Function to create Image style entity.
+ */
+function create_easy_slider_image_style($id, $data, $weight) {
+  $image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($id);
+  $image_style_label = ucwords(str_replace('_', ' ', $id));
+
+  if (!$image_style) {
+    $style = ImageStyle::create(['name' => $id, 'label' => $image_style_label]);
+
+    $configuration = [
+      'id' => 'image_scale_and_crop',
+      'weight' => $weight,
+      'data' => $data,
+    ];
+
+    $effect = \Drupal::service('plugin.manager.image.effect')->createInstance($configuration['id'], $configuration);
+    $style->addImageEffect($effect->getConfiguration());
+    $style->save();
+  }
+}

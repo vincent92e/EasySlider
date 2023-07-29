@@ -9,10 +9,40 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface EasySliderInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Get images.
+   */
   public function getSlideImages();
 
+  /**
+   * Get captions.
+   */
   public function getSlideCaptions();
 
-  public function getSlideSettings($field);
+  /**
+   * Get slide settings.
+   */
+  public function getSlideSettings();
+
+  /**
+   * Set slide images.
+   *
+   * @param array $images
+   */
+  public function setSlideImages($image);
+
+  /**
+   * Set slide captions.
+   *
+   * @param array $captions
+   */
+  public function setSlideCaptions($caption);
+
+  /**
+   * Set slide settings.
+   *
+   * @param array $settings
+   */
+  public function setSlideSettings($settings);
+
 }
