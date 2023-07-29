@@ -1,5 +1,5 @@
 name: 'Easy Slider'
 type: module
 description: 'A module for creating slider components.'
-core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
 package: 'Custom'
