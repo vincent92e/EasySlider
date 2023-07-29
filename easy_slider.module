@@ -28,8 +28,12 @@ function easy_slider_help($route_name, RouteMatchInterface $route_match) {
  */
 function easy_slider_theme() {
   return [
-    'easy_slider' => [
-      'render element' => 'children',
+    'easy_slider_block' => [
+      'variables' => [
+        'images' => [],
+        'captions' => [],
+        'settings' => [],
+      ],
     ],
   ];
 }

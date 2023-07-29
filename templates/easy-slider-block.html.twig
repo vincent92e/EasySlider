@@ -1,0 +1,28 @@
+{#
+/**
+* @file
+* Default theme implementation to display a block.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
+{% set classes = [
+    'clear-both',
+] %}
+<div{{ attributes.addClass(classes) }}>
+    <div class="easy_slider_wrapper slides" data-effect="{{ settings.effect }}" data-effect="{{ settings.effect }}" data-effect="{{ settings.effect }}">
+        {% for key,image in images %}
+            <div class="slide">
+                <picture>
+                    <source srcset="{{ image.easy_slider_desktop.url }}" media="(min-width: 1280px)"/>
+                    <source srcset="{{ image.easy_slider_laptop.url }}" media="(min-width: 1024px)"/>
+                    <source srcset="{{ image.easy_slider_tablet.url }}" media="(min-width: 768px)"/>
+                    <img src="{{ image.easy_slider_mobile.url }}" alt="Baby Sleeping"/>
+                </picture>
+                <div class="slide-caption">{{ captions[key] }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
